@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -7,6 +7,12 @@ namespace Albert.Common
 {
     public static class CommonUtils
     {
+        /// <summary>
+        /// Deconstructor for <see cref="KeyValuePair{TKey,TValue}"/>.
+        /// </summary>
+        /// <example><code>
+        /// var (key, value) = keyValuePair;
+        /// </code></example>
         [UsedImplicitly]
         public static void Deconstruct<TKey, TVal>(this KeyValuePair<TKey, TVal> kvp, out TKey key, out TVal val)
         {
