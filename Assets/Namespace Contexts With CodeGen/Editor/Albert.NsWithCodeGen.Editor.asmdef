@@ -1,0 +1,19 @@
+{
+    "name": "Albert.NsCodeGen.Editor",
+    "rootNamespace": "Albert.NsCodeGen.Editor",
+    "references": [
+        "GUID:3c56d2872d0134e499159d85fd6d01a6",
+        "GUID:49385eaf635d01742ab23cc2577b3702"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

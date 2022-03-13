@@ -1,0 +1,16 @@
+{
+    "name": "Albert.NsCodeGen",
+    "rootNamespace": "Albert.NsCodeGen",
+    "references": [
+        "GUID:3c56d2872d0134e499159d85fd6d01a6"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
