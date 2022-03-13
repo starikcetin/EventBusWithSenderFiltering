@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -58,9 +58,6 @@ namespace Albert.Common
         /// </summary>
         public static string Repeat(this string source, int count) => string.Concat(Enumerable.Repeat(source, count));
 
-        public static bool IsPowerOfTwo(this int num)
-        {
-            return num != 0 && (num & (num - 1)) == 0;
-        }
+        public static bool IsPowerOfTwo(this int num) => num != 0 && (num & (num - 1)) == 0;
     }
 }
