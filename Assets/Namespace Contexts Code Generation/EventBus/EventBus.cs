@@ -7,16 +7,22 @@ namespace Albert.NsCodeGen.EventBus
         private static readonly Dictionary<EventContext, List<EventListener<TEvent>>> Listeners
             = new Dictionary<EventContext, List<EventListener<TEvent>>>();
 
-        public static void AddListener(EventListener<TEvent> listener, EventContext context)
+        public static void AddListener(EventListener<TEvent> listener, params EventContext[] contexts)
         {
-            EnsureContextListExists(context);
-            Listeners[context].Add(listener);
+            foreach (var context in contexts)
+            {
+                EnsureContextListExists(context);
+                Listeners[context].Add(listener);
+            }
         }
 
-        public static void RemoveListener(EventListener<TEvent> listener, EventContext context)
+        public static void RemoveListener(EventListener<TEvent> listener, params EventContext[] contexts)
         {
-            EnsureContextListExists(context);
-            Listeners[context].Remove(listener);
+            foreach (var context in contexts)
+            {
+                EnsureContextListExists(context);
+                Listeners[context].Remove(listener);
+            }
         }
 
         public static void Emit(object sender, TEvent e)
