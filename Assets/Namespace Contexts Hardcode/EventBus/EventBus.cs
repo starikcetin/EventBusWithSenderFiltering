@@ -5,21 +5,43 @@ namespace Albert.NsHardCode.EventBus
 {
     public static class EventBus<TEvent>
     {
-        public const string RootContext = ".RootContext";
+        private const string RootContext = ".RootContext";
 
         private static readonly Dictionary<string, List<EventListener<TEvent>>> Listeners
             = new Dictionary<string, List<EventListener<TEvent>>>();
 
-        public static void AddListener(EventListener<TEvent> listener, string namespaceContext = RootContext)
+        public static void AddListener(EventListener<TEvent> listener, params string[] namespaceContexts)
         {
-            EnsureNamespaceContextListExists(namespaceContext);
-            Listeners[namespaceContext].Add(listener);
+            if (namespaceContexts.Length == 0)
+            {
+                EnsureNamespaceContextListExists(RootContext);
+                Listeners[RootContext].Add(listener);
+            }
+            else
+            {
+                foreach (var namespaceContext in namespaceContexts)
+                {
+                    EnsureNamespaceContextListExists(namespaceContext);
+                    Listeners[namespaceContext].Add(listener);
+                }
+            }
         }
 
-        public static void RemoveListener(EventListener<TEvent> listener, string namespaceContext = RootContext)
+        public static void RemoveListener(EventListener<TEvent> listener, params string[] namespaceContexts)
         {
-            EnsureNamespaceContextListExists(namespaceContext);
-            Listeners[namespaceContext].Remove(listener);
+            if (namespaceContexts.Length == 0)
+            {
+                EnsureNamespaceContextListExists(RootContext);
+                Listeners[RootContext].Remove(listener);
+            }
+            else
+            {
+                foreach (var namespaceContext in namespaceContexts)
+                {
+                    EnsureNamespaceContextListExists(namespaceContext);
+                    Listeners[namespaceContext].Remove(listener);
+                }
+            }
         }
 
         public static void Emit(object sender, TEvent e)
