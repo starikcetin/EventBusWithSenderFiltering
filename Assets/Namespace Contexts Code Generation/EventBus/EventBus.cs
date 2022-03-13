@@ -30,7 +30,7 @@ namespace Albert.NsCodeGen.EventBus
             var senderEscapedNs = sender.GetEscapedNamespace();
             var senderContext = EventContext.GetContextOfEscapedNamespace(senderEscapedNs);
 
-            foreach (var context in senderContext.SelfAndAncestors())
+            foreach (var context in senderContext.GetSelfAndAncestors())
             {
                 EnsureContextListExists(context);
                 foreach (var listener in Listeners[context])

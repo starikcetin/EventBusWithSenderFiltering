@@ -13,7 +13,8 @@ namespace Albert.NsCodeGen.Editor
 {
     public static class EventContextsGenerator
     {
-        private static string AbsoluteEventContextsFilePath => Path.Combine(Application.dataPath, Constants.RelativeEventContextsFilePath);
+        private static string AbsoluteEventContextsFilePath
+            => Path.Combine(Application.dataPath, Constants.RelativeEventContextsFilePath);
 
         [MenuItem("Albert/" + Constants.OptionName + "/Force Generate")]
         [DidReloadScripts]

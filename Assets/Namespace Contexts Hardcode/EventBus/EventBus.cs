@@ -12,34 +12,42 @@ namespace Albert.NsHardCode.EventBus
 
         public static void AddListener(EventListener<TEvent> listener, params string[] namespaceContexts)
         {
+            void AddListenerToContext(string context)
+            {
+                EnsureNamespaceContextListExists(context);
+                Listeners[context].Add(listener);
+            }
+
             if (namespaceContexts.Length == 0)
             {
-                EnsureNamespaceContextListExists(RootContext);
-                Listeners[RootContext].Add(listener);
+                AddListenerToContext(RootContext);
             }
             else
             {
                 foreach (var namespaceContext in namespaceContexts)
                 {
-                    EnsureNamespaceContextListExists(namespaceContext);
-                    Listeners[namespaceContext].Add(listener);
+                    AddListenerToContext(namespaceContext);
                 }
             }
         }
 
         public static void RemoveListener(EventListener<TEvent> listener, params string[] namespaceContexts)
         {
+            void RemoveListenerFromContext(string context)
+            {
+                EnsureNamespaceContextListExists(context);
+                Listeners[context].Add(listener);
+            }
+
             if (namespaceContexts.Length == 0)
             {
-                EnsureNamespaceContextListExists(RootContext);
-                Listeners[RootContext].Remove(listener);
+                RemoveListenerFromContext(RootContext);
             }
             else
             {
                 foreach (var namespaceContext in namespaceContexts)
                 {
-                    EnsureNamespaceContextListExists(namespaceContext);
-                    Listeners[namespaceContext].Remove(listener);
+                    RemoveListenerFromContext(namespaceContext);
                 }
             }
         }
@@ -47,9 +55,9 @@ namespace Albert.NsHardCode.EventBus
         public static void Emit(object sender, TEvent e)
         {
             var senderNamespace = sender.GetType().Namespace;
-            var senderSelfAndAncestorNamespaces = senderNamespace.PeelNamespace().Append(RootContext);
+            var senderAndAncestorsNamespaces = senderNamespace.PeelNamespace().Append(RootContext);
 
-            foreach (var namespaceContext in senderSelfAndAncestorNamespaces)
+            foreach (var namespaceContext in senderAndAncestorsNamespaces)
             {
                 EnsureNamespaceContextListExists(namespaceContext);
                 foreach (var listener in Listeners[namespaceContext])

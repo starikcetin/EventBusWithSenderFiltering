@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Albert.NsCodeGen
 {
@@ -26,16 +27,10 @@ namespace Albert.NsCodeGen
             EscapedNsToContextMap.Add(escapedNamespace, this);
         }
 
-        public IEnumerable<EventContext> SelfAndAncestors()
+        public IEnumerable<EventContext> GetSelfAndAncestors()
         {
-            yield return this;
-            if (ParentContext != null)
-            {
-                foreach (var parentSelfAndAncestor in ParentContext.SelfAndAncestors())
-                {
-                    yield return parentSelfAndAncestor;
-                }
-            }
+            var ancestors = ParentContext?.GetSelfAndAncestors() ?? Enumerable.Empty<EventContext>();
+            return ancestors.Prepend(this);
         }
     }
 }
